@@ -1,0 +1,14 @@
+{
+  "name": "modelviewer",
+  "version": "0.0.1",
+  "description": "An application that lets you view the 3D models on your computer in gallery format",
+  "main": "./js/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Keegan Lawley",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^3.0.5"
+  }
+}
