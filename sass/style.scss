@@ -1,5 +1,8 @@
 body {
+  -webkit-app-region: drag;
   margin: 0;
+  font-family: 'Quicksand', serif;
+
 }
 canvas {
   width: 100%;
@@ -10,8 +13,43 @@ canvas {
   position: fixed;
   left: 45%;
   top: 0;
-  color: white;
-  font-family: 'Fugaz One', cursive;
+  color: #000;
+  font-family: 'Quicksand', serif;
   font-weight: normal;
   z-index: 100;
+}
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container>.sidebar {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #1E2022;
+  color: white;
+  border-right: 2px solid #000;
+}
+.container>.sidebar>.item {
+  text-align: center;
+  // margin-top: 2em;
+  padding: 2.5em 0;
+  border-bottom: 2px solid #000;
+  width: 100%;
+}
+.container>.main {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  background-color: #1E2022;
+  color: white;
+}
+.container>.main h1 {
+  text-align: center;
 }

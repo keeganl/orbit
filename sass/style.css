@@ -1,5 +1,7 @@
 body {
+  -webkit-app-region: drag;
   margin: 0;
+  font-family: 'Quicksand', serif;
 }
 
 canvas {
@@ -12,9 +14,67 @@ canvas {
   position: fixed;
   left: 45%;
   top: 0;
-  color: white;
-  font-family: 'Fugaz One', cursive;
+  color: #000;
+  font-family: 'Quicksand', serif;
   font-weight: normal;
   z-index: 100;
+}
+
+.container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 200px 1fr;
+      grid-template-columns: 200px 1fr;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container > .sidebar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #1E2022;
+  color: white;
+  border-right: 2px solid #000;
+}
+
+.container > .sidebar > .item {
+  text-align: center;
+  padding: 2.5em 0;
+  border-bottom: 2px solid #000;
+  width: 100%;
+}
+
+.container > .main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2em;
+  background-color: #1E2022;
+  color: white;
+}
+
+.container > .main h1 {
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */
