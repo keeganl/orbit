@@ -1,17 +1,39 @@
 var drawerbtn = document.querySelector(".drawerbtn");
 var sidebar = document.querySelector(".sidebar")
 var main = document.querySelector(".main");
+var plusBtn = document.getElementById("plus");
 
-
-drawerbtn.onclick = () => {
-  if ((sidebar.style.width == "0px") && (main.style.marginLeft == "0px")) {
+function drawerCheck() {
+  if (sidebar.style.width == "0px" && main.style.marginLeft == "0px") {
     sidebar.style.width = "200px";
     main.style.marginLeft = "200px";
-
   } else {
     sidebar.style.width = "0px";
     main.style.marginLeft = "0px";
   }
+}
+
+function handleFileSelect(evt) {
+  var files = evt.target.files; // FIlelist object
+  
+  // fiels is a Filelist of File objects. List some properties.
+  var output = [];
+  for (var i = 0, f; f = files[i]; i++) {
+    output.push(
+      '<li><strong>', escape(f.name), 
+      '</strong> (', f.type || 'n/a', ') - ',
+      f.size, ' bytes, last modified: ',
+      f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+      '</li>'
+    );
+  }
+  document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+}
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+drawerbtn.onclick = () => {
+  drawerCheck();
 }
 
 

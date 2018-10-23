@@ -40,10 +40,9 @@ canvas {
   // height: 100vh;
 }
 .container>.sidebar {
-  background-color: #1E2022;
+  background-color: #141414;
   color: white;
-  border-right: 2px solid #000;
-
+  // box-shadow:inset 0px 0px 0px 3px #000;
   height: 100%;
   width: 0;
   position: fixed;
@@ -57,10 +56,11 @@ canvas {
 }
 .container>.sidebar>.add {
   text-align: center;
-  // margin-top: 2em;
+  background-color: transparent;
+  color: #FFF;
   padding: 2.5em 0;
-  // border-bottom: 2px solid #000;
   width: 100%;
+  border: 0;
 }
 .container>.main {
   display: flex;
@@ -88,8 +88,10 @@ canvas {
   border-bottom-right-radius: .5em;
   margin-right: 2em;
 }
-.drawerbtn>i {
-  
-  color: #FFF;
-  
+input[type="file"] {
+  display: none;
+}
+.file-input {
+  padding: 1em 2em;
+  cursor: pointer;
 }
