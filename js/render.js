@@ -1,7 +1,6 @@
 var drawerbtn = document.querySelector(".drawerbtn");
 var sidebar = document.querySelector(".sidebar")
 var main = document.querySelector(".main");
-var plusBtn = document.getElementById("plus");
 
 function drawerCheck() {
   if (sidebar.style.width == "0px" && main.style.marginLeft == "0px") {
@@ -27,7 +26,18 @@ function handleFileSelect(evt) {
       '</li>'
     );
   }
-  document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  var fileCon = document.createElement("div");
+  var fileNameEl = document.createElement("h1");
+  var fileName = document.createTextNode
+  var fileTypeEl = document.createElement("h2");
+  var fileSizeEl = document.createElement("h3");
+  fileCon.appendChild(fileNameEl, fileTypeEl, fileSizeEl);
+  fileCon.classList.add("item");
+  var plus = document.getElementById("create");
+  var parent = document.querySelector(".sidebar");
+  parent.insertBefore(fileCon, plus);
+  
 }
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
