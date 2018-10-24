@@ -38,7 +38,7 @@ canvas {
   align-items: center;
   color: #FFF;
   background-color: #000;
-  height: 50px;
+  height: 35px;
 }
 .container>.topbar div {
   margin: 1em;
@@ -107,4 +107,11 @@ input[type="file"] {
 .file-input {
   padding: 1em 2em;
   cursor: pointer;
+}
+.topbtns {
+  transition: 0.5s
+}
+.topbtns:hover {
+  transform: scale(1.2);
+  transition: 0.3s;
 }
