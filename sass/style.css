@@ -49,6 +49,11 @@ canvas {
   padding-top: 1em;
 }
 
+h1#titletag {
+  text-align: center;
+  margin: 0.5em;
+}
+
 .container > .sidebar > .add {
   text-align: center;
   background-color: transparent;
