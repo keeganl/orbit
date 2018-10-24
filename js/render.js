@@ -6,7 +6,6 @@ var config = {
   projectId: process.env.PROJECT_ID,
   storageBucket: process.env.STORAGE_BUCKET,
   messagingSenderId: process.env.MESSAGE_SENDER_ID
-  [YOUR CREDENTIALS HERE]
 };
 
 firebase.initializeApp(config);
