@@ -40,10 +40,6 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
 
 
-
-
-
-
 // // Three JS 
 const THREE = require("three");
 var scene = new THREE.Scene();
@@ -60,7 +56,7 @@ renderer.setSize(w - 200, h - 200);
 main.appendChild(renderer.domElement);
 
 var geometry = new THREE.BoxGeometry(2, 1, 1);
-var material = new THREE.MeshBasicMaterial({color});
+var material = new THREE.MeshBasicMaterial({ color });
 var cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 

@@ -1,11 +1,11 @@
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyACD0KmxIdl70FeFtVXG1hIKMkL-N1uIEc",
-  authDomain: "orbit-343b4.firebaseapp.com",
-  databaseURL: "https://orbit-343b4.firebaseio.com",
-  projectId: "orbit-343b4",
-  storageBucket: "orbit-343b4.appspot.com",
-  messagingSenderId: "952406705209"
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGE_SENDER_ID
 };
 
 firebase.initializeApp(config);
@@ -45,6 +45,5 @@ fileIO.onchange = () => {
     })
     .catch(console.error);
 }
-
 
 
