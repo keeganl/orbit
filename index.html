@@ -17,17 +17,19 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/fontawesome.css" integrity="sha384-BzCy2fixOYd0HObpx3GMefNqdbA7Qjcc91RgYeDjrHTIEXqiF00jKvgQG0+zY/7I"
     crossorigin="anonymous">
+  <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="sidebar">
       <div id="create" class="add">
-        <label id="files" class="file-input">
-          <i class="fas fa-plus fa-2x"></i>
-            <input type="file" name="files[]" multiple />
-        </label>
+        <form>
+          <label id="files" class="file-input">
+            <i class="fas fa-plus fa-2x"></i> 
+            <input id="input" accept=".stl" type="file" name="input" multiple />
+          </label>
+        </form>
       </div>
-      <output id="list"></output>
     </div>
     <div class="main">
       <div class="drawerbtn">

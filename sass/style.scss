@@ -14,7 +14,7 @@ body {
   height: 100%; 
   overflow: hidden;
   background-color: #1E2022;
-  font-family: 'Quicksand', serif;
+  font-family: 'Google Sans', serif;
 
 }
 canvas {
@@ -29,7 +29,6 @@ canvas {
   left: 45%;
   top: 0;
   color: #000;
-  font-family: 'Quicksand', serif;
   font-weight: normal;
   z-index: 100;
 }
@@ -52,8 +51,8 @@ canvas {
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 1em;
-
 }
+
 .container>.sidebar>.add {
   text-align: center;
   background-color: transparent;
@@ -61,6 +60,13 @@ canvas {
   padding: 2.5em 0;
   width: 100%;
   border: 0;
+}
+.item {
+  text-align: left;
+  padding: 1.5em;
+  font-weight: bold;
+  border-bottom: 4px solid #000;
+  border-right: 4px solid #000;
 }
 .container>.main {
   display: flex;
