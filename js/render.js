@@ -10,10 +10,14 @@ var config = {
 
 firebase.initializeApp(config);
 
+// Accessing HTML elements
 var drawerbtn = document.querySelector(".drawerbtn");
 var sidebar = document.querySelector(".sidebar")
 var main = document.querySelector(".main");
+var fileIO = document.getElementById("files");
 
+
+// Push sidebar content
 function drawerCheck() {
   if (sidebar.style.width == "0px" && main.style.marginLeft == "0px") {
     sidebar.style.width = "200px";
@@ -28,8 +32,7 @@ drawerbtn.onclick = () => {
   drawerCheck();
 };
 
-var fileIO = document.getElementById("files");
-
+// Push file to firebase db
 fileIO.onchange = () => {
   const ref = firebase.storage().ref();
   const file = document.querySelector("#input").files[0];
