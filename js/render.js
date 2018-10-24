@@ -92,4 +92,18 @@ window.onclick = (e) => {
   }
 }
 
+var submitForm = document.getElementById("submit");
+submitForm.onclick = () => {
+  var email = document.getElementById("email").value;
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  console.log(email + "\n" + username + "\n" + password);
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+  });
+}
+
 
