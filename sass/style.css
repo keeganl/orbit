@@ -34,8 +34,27 @@ canvas {
   z-index: 100;
 }
 
+.container > .topbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #FFF;
+  background-color: #000;
+  height: 50px;
+}
+
+.container > .topbar div {
+  margin: 1em;
+}
+
 .container > .sidebar {
-  background-color: #141414;
+  background-color: #262F3D;
   color: white;
   height: 100%;
   width: 0;
@@ -65,10 +84,9 @@ h1#titletag {
 
 .item {
   text-align: left;
-  padding: 1.5em;
+  padding: .25em;
   font-weight: bold;
-  border-bottom: 4px solid #000;
-  border-right: 4px solid #000;
+  font-size: .5em;
 }
 
 .container > .main {
@@ -107,7 +125,7 @@ h1#titletag {
       -ms-flex-align: center;
           align-items: center;
   color: #FFF;
-  background-color: #141414;
+  background-color: #262F3D;
   padding: .65em;
   border-top-right-radius: .5em;
   border-bottom-right-radius: .5em;

@@ -36,7 +36,7 @@ drawerbtn.onclick = () => {
 fileIO.onchange = () => {
   const ref = firebase.storage().ref();
   const file = document.querySelector("#input").files[0];
-  const name = (+new Date()) + "-" + file.name;
+  const name = file.name;
   const metadata = {
     contentType: file.type
   };
@@ -47,6 +47,15 @@ fileIO.onchange = () => {
       console.log(url);
     })
     .catch(console.error);
+  var div = document.createElement("div");
+  var title = document.createElement("p");
+  var body = document.createTextNode(name + metadata.contentType);
+  title.appendChild(body);
+  div.appendChild(title);
+  div.classList.add("item");
+
+  var fileTag = document.getElementById("titletag");
+  fileTag.appendChild(div);
 }
 
 
