@@ -1,4 +1,12 @@
 const { app, BrowserWindow } = require('electron')
+const dotenv = require('dotenv')
+const result = dotenv.config();
+
+if (result.error) {
+  throw result.error;
+}
+
+console.log(result.parsed);
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
