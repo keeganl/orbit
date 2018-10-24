@@ -1,11 +1,6 @@
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyACD0KmxIdl70FeFtVXG1hIKMkL-N1uIEc",
-  authDomain: "orbit-343b4.firebaseapp.com",
-  databaseURL: "https://orbit-343b4.firebaseio.com",
-  projectId: "orbit-343b4",
-  storageBucket: "orbit-343b4.appspot.com",
-  messagingSenderId: "952406705209"
+  [YOUR CREDENTIALS HERE]
 };
 
 firebase.initializeApp(config);
