@@ -14,8 +14,28 @@ firebase.initializeApp(config);
 var drawerbtn = document.querySelector(".drawerbtn");
 var sidebar = document.querySelector(".sidebar")
 var main = document.querySelector(".main");
-var fileIO = document.getElementById("files");
+var fileIO = document.querySelector("#files");
 
+
+var provider = new firebase.auth.GithubAuthProvider();
+provider.addScope("repo");
+
+firebase.auth().signInWithPopup(provider).then(function (result) {
+  // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+}).catch(function (error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
 
 // Push sidebar content
 function drawerCheck() {
@@ -54,8 +74,22 @@ fileIO.onchange = () => {
   div.appendChild(title);
   div.classList.add("item");
 
-  var fileTag = document.getElementById("titletag");
+  var fileTag = document.querySelector("#titletag");
   fileTag.appendChild(div);
+}
+
+// Modal
+var modalBtn = document.querySelector("#user");
+var modal = document.querySelector("#modal");
+
+modalBtn.onclick = () => {
+  modal.style.display = "block";
+}
+
+window.onclick = (e) => {
+  if(e.target == modal) {
+    modal.style.display = "none";
+  }
 }
 
 

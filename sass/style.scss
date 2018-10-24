@@ -15,13 +15,11 @@ body {
   overflow: hidden;
   background-color: #1E2022;
   font-family: 'Google Sans', serif;
-
 }
 canvas {
   width: 100%;
   height: 100%;
   margin: auto;
-
 }
 #title {
   width: 100%;
@@ -37,14 +35,14 @@ canvas {
   justify-content: flex-end;
   align-items: center;
   color: #FFF;
-  background-color: #000;
+  background-color: #171515;
   height: 35px;
 }
 .container>.topbar div {
   margin: 1em;
 }
 .container>.sidebar {
-  background-color: #262F3D;
+  background-color: #0D0E10;
   color: white;
   // box-shadow:inset 0px 0px 0px 3px #000;
   height: 100%;
@@ -59,13 +57,14 @@ canvas {
 }
 h1#titletag {
   text-align: center;
-  margin: 0.5em;
+  margin-left: 0.25em;
+  margin-top: 0.25em;
 }
 .container>.sidebar>.add {
   text-align: center;
   background-color: transparent;
   color: #FFF;
-  padding: 2.5em 0;
+  padding: .95em 0;
   width: 100%;
   border: 0;
 }
@@ -95,8 +94,8 @@ h1#titletag {
   justify-content: center;
   align-items: center;
   color: #FFF;
-  background-color: #262F3D;
-  padding: .65em;
+  background-color: #0D0E10;
+  padding: .5em;
   border-top-right-radius: .5em;
   border-bottom-right-radius: .5em;
   margin-right: 2em;
@@ -114,4 +113,66 @@ input[type="file"] {
 .topbtns:hover {
   transform: scale(1.2);
   transition: 0.3s;
+}
+
+// Modal
+#modal {
+  display: none;
+  position: fixed;
+  padding-top: 15%;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #000;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  
+}
+.content {
+  width: 500px;
+  padding: 2em;
+  margin: auto;
+  background-color: #049BE5;
+  color: whitesmoke;
+  border-radius: 0.5em;
+}
+.content h1 {
+  text-align: center;
+}
+#submit {
+  text-align: center;
+  width: 100px;
+  margin: auto;
+  background-color: #049BE5;
+  color: #FFF;
+}
+#submit:hover {
+  background-color: rgba($color: #262F3D, $alpha: 0.5);
+}
+form input,
+form input::-webkit-input-placeholder,  {
+  font-size: 14px;
+  line-height: 3;
+} 
+input {
+  width: 300px;
+  display: block;
+  padding: .5em 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0;
+  border-radius: 0.5em;
+  background-color: #FFF;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  transform: scale(1.1);
+  transition: 0.5s;
 }

@@ -18,20 +18,25 @@
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
 </head>
 <body>
   <div class="container">
     <div class="topbar">
-      <div class="topbtns"><i class="fab fa-github fa-1.75x"></i></div>
-      <div class="topbtns"><i class="fas fa-cog fa-1.75x"></i></div>
-      <div class="topbtns"><i class="fas fa-user-circle fa-1.75x"></i></div>
+      <div>
+        <p>
+          Hey, Keegan
+        </p>
+      </div>
+      <div class="topbtns"><i id="user" class="fas fa-user-circle fa-1.8x"></i></div>
     </div>
     <div class="sidebar">
       <h1 id="titletag">Files</h1>
       <div id="create" class="add">
         <form>
           <label id="files" class="file-input">
-            <i class="fas fa-plus fa-2x"></i> 
+            <i class="fas fa-plus fa-1.5x"></i> 
             <input id="input" accept=".stl" type="file" name="input" multiple />
           </label>
         </form>
@@ -42,7 +47,19 @@
         <i class="fas fa-caret-right fa-2x"></i>
       </div>
     </div>
-    
+  </div>
+
+  <div id="modal">
+    <div class="content">
+      <form>
+        <h1>Login</h1>
+        <div id="firebaseui-auth-container"></div>
+        <input type="email" name="email" id="email" placeholder="Email" required />
+        <input type="text" name="username" id="username" placeholder="Username" required />
+        <input type="password" name="password" id="password" placeholder="Password" required /> 
+        <input id="submit" type="submit" value="Sign Up" />
+      </form>
+    </div>
   </div>
   <script src="./js/render.js"></script>
 </body>
