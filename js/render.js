@@ -222,8 +222,8 @@ function init() {
   // create a camera, which defines where we're looking at.
   var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
   // create a render and set the size
-  var webGLRenderer = new THREE.WebGLRenderer();
-  webGLRenderer.setClearColor(new THREE.Color(0x000, 1.0));
+  var webGLRenderer = new THREE.WebGLRenderer( {alpha: true} );
+  webGLRenderer.setClearColor(0x000000, 0);
   webGLRenderer.setSize(400, 400);
   webGLRenderer.shadowMapEnabled = true;
   // position and point the camera to the center of the scene
@@ -233,7 +233,7 @@ function init() {
   camera.lookAt(new THREE.Vector3(0, 40, 0));
   // add spotlight for the shadows
   var spotLight = new THREE.SpotLight(0xffffff);
-  spotLight.position.set(150, 150, 150);
+  spotLight.position.set(100, 100, 100);
   scene.add(spotLight);
   // add the output of the renderer to the html element
   document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
@@ -261,24 +261,12 @@ function init() {
   );
   render();
   function render() {
-    //stats.update();
     if (group) {
       group.rotation.z += 0.006;
-      // group.rotation.x+=0.006;
     }
     // render using requestAnimationFrame
    requestAnimationFrame(render);
     webGLRenderer.render(scene, camera);
   }
-  // function initStats() {
-  //   var stats = new Stats();
-  //   stats.setMode(0); // 0: fps, 1: ms
-  //   // Align top-left
-  //   stats.domElement.style.position = 'absolute';
-  //   stats.domElement.style.left = '0px';
-  //   stats.domElement.style.top = '0px';
-  //   document.getElementById("Stats-output").appendChild(stats.domElement);
-  //   return stats;
-  // }
 }
 window.onload = init;
