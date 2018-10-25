@@ -1,4 +1,4 @@
 /node_modules
 .env
-./libs/*
+/libs/*
 .DS_Store
