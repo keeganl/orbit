@@ -206,13 +206,3 @@ signup.onclick = () => {
     createUser(email, password);
   }
 }
-
-
-
-
-
-
-
-
-
-
