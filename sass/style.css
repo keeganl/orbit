@@ -121,6 +121,13 @@ h1#titletag {
   color: #808080;
 }
 
+.fa-plus:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
 .container > .main {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -69,7 +69,6 @@ p#welcome {
   width: 160px;
   border-radius: 1em;
 }
-
 h1#titletag {
   text-align: center;
   margin-left: 0.25em;
@@ -97,6 +96,10 @@ h1#titletag {
 }
 .item a:hover {
   color: #808080;
+}
+.fa-plus:hover {
+  transform: scale(1.5);
+  transition: 0.3s;
 }
 .container>.main {
   display: flex;
@@ -144,7 +147,6 @@ input[type="file"] {
   overflow: auto;
   background-color: #000;
   background-color: rgba($color: #000000, $alpha: 0.5);
-  
 }
 .content {
   display: flex;
@@ -211,24 +213,17 @@ button:focus {
 .right {
   border: 2px solid #7AE582;
 }
-
 .borderbot {
   border-bottom: 2px solid #141414;
 }
-
-
 .fadein {
   animation: fadeIn 1.75s ease;
 }
-
 .fadeout {
   animation: fadeIn 1.75s ease reverse;
 }
 
-
-
 // Animations 
-
 @keyframes shake {
   0% {
     transform: translateX(0px);

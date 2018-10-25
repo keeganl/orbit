@@ -20,6 +20,12 @@
   <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
   <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+
+  <script type="text/javascript" src="./libs/three.js"></script>
+  <script type="text/javascript" src="./libs/STLLoader.js"></script>
+  
+  <script type="text/javascript" src="./libs/stats.js"></script>
+  <script type="text/javascript" src="./libs/dat.gui.js"></script>
 </head>
 <body>
   <div class="container">
@@ -48,6 +54,10 @@
     <div class="main">
       <div class="drawerbtn">
         <i class="fas fa-caret-right fa-2x"></i>
+      </div>
+      <div id="Stats-output">
+      </div>
+      <div id="WebGL-output">
       </div>
     </div>
   </div>
