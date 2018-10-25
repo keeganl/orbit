@@ -100,10 +100,11 @@ submitForm.onclick = () => {
     var errorCon = document.createElement("h1")
     var errorMsg = document.createTextNode("Hey you forgot some information! 😯");
     errorCon.appendChild(errorMsg);
+    errorCon.classList.add("fadein");
     var form = document.getElementById("form");
-    form.append(errorCon);
     var emailRef = document.getElementById("email");
-    var passwordRef = document.getElementById("password")
+    var passwordRef = document.getElementById("password");
+    form.append(errorCon);
     emailRef.classList.add("wrong");
     passwordRef.classList.add("wrong");
     return;    

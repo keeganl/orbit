@@ -177,6 +177,50 @@ button:focus {
   transition: 0.5s;
 }
 .wrong {
+  animation: shake .75s ease;
   border: 2px solid #FC4747;
-  transition: 0.5s;
+}
+
+.fadein {
+  animation: fadeIn 1.75s ease;
+}
+
+
+
+// Animations 
+
+@keyframes shake {
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    transform: translateY(2px);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(5px);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
