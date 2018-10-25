@@ -13,7 +13,7 @@ firebase.initializeApp(config);
 // Accessing HTML elements
 var drawerbtn = document.querySelector(".drawerbtn");
 var sidebar = document.querySelector(".sidebar")
-var main = document.querySelector(".main");
+const main = document.querySelector(".main");
 var fileIO = document.querySelector("#files");
 
 
@@ -92,37 +92,27 @@ window.onclick = (e) => {
   }
 }
 
-function cleanUp() {
-  
+function modalExit() {
+  modal.style.display = "none";
 }
 
+var login = document.getElementById("login");
+var signup = document.getElementById("sign");
 const form = document.getElementById("form");
 const emailRef = document.getElementById("email");
 const passwordRef = document.getElementById("password");
-var submitForm = document.getElementById("submit");
-submitForm.onclick = () => {
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-  if (email == " " || password == "") {
-    var errorCon = document.createElement("h1")
-    var errorMsg = document.createTextNode("Hey you forgot some information! 😯");
-    errorCon.appendChild(errorMsg);
-    errorCon.classList.add("fadein");
-    form.append(errorCon);
-    emailRef.classList.add("wrong");
-    passwordRef.classList.add("wrong"); 
-    setTimeout(() => {
-      emailRef.classList.remove("wrong");
-      passwordRef.classList.remove("wrong");
-      errorCon.remove();
-    }, 3500);
-  }
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ...
-  });
+const submitForm = document.getElementById("submit");
+const welcome = document.getElementById("welcome")
+
+function createUser(email, password) {
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .catch(function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode + errorMessage);
+    });
   emailRef.classList.add("right");
   passwordRef.classList.add("right");
   var successCon = document.createElement("h1");
@@ -135,8 +125,94 @@ submitForm.onclick = () => {
     passwordRef.classList.remove("right");
     successCon.remove();
     form.reset();
+    modalExit();
   }, 3500)
   
 }
+
+function signInUser(email, password) {
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode + errorMessage);
+    });
+  emailRef.classList.add("right");
+  passwordRef.classList.add("right");
+  var splitEmail = email.split("@"); 
+  console.log(splitEmail);
+  const username = splitEmail[0];
+  var successCon = document.createElement("h1");
+  var successMsg = document.createTextNode("🎉Welcome back " + username + " 🎉");
+  successCon.appendChild(successMsg);
+  successCon.classList.add("fadein");
+  form.append(successCon);
+  setTimeout(() => {
+    emailRef.classList.remove("right");
+    passwordRef.classList.remove("right");
+    successCon.remove();
+    form.reset();
+    welcome.innerHTML = "Hey, " + username;
+    modalExit();
+  }, 3500);
+  
+}
+
+function noInfo() {
+  var errorCon = document.createElement("h1");
+  var errorMsg = document.createTextNode("Hey you forgot some information! 😯");
+  errorCon.appendChild(errorMsg);
+  errorCon.classList.add("fadein");
+  form.append(errorCon);
+  emailRef.classList.add("wrong");
+  passwordRef.classList.add("wrong");
+  setTimeout(() => {
+    emailRef.classList.remove("wrong");
+    passwordRef.classList.remove("wrong");
+    errorCon.remove();
+  }, 3500);
+}
+
+login.onclick = () => {
+  if (signup.classList.contains("borderbot")) {
+    signup.classList.remove("borderbot");
+  }
+  login.classList.add("borderbot");
+  submitForm.onclick = () => {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    if ((email == "") || (password == "")) {
+      noInfo();
+      return;
+    }
+    signInUser(email, password);
+  }
+}
+
+signup.onclick = () => {
+  if (login.classList.contains("borderbot")) {
+    login.classList.remove("borderbot");
+  }
+  signup.classList.add("borderbot"); 
+  submitForm.onclick = () => {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    if ((email == "") || (password == "")) {
+      noInfo();
+      return;
+    }
+    createUser(email, password);
+  }
+}
+
+
+
+
+
+
+
+
 
 

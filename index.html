@@ -25,8 +25,8 @@
   <div class="container">
     <div class="topbar">
       <div>
-        <p>
-          Hey, Keegan
+        <p id="welcome">
+          Welcome to Orbit 
         </p>
       </div>
       <div class="topbtns"><i id="user" class="fas fa-user-circle fa-1.8x"></i></div>
@@ -51,13 +51,16 @@
 
   <div id="modal">
     <div class="content">
+      <div class="tabs">
+        <h1 id="login">Login</h1>
+        <h1 id="sign">Signup</h1>
+      </div>
       <form id="form">
-        <h1>Login</h1>
         <div id="firebaseui-auth-container"></div>
         <input type="email" name="email" id="email" placeholder="Email" required />
         <input type="password" name="password" id="password" minlength="8"
         maxlength="16" placeholder="Password (minimum 8 characters)" required /> 
-        <input id="submit" type="button" value="Sign Up" />
+        <input id="submit" type="button" value="Sumbit" />
       </form>
     </div>
   </div>
