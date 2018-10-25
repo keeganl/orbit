@@ -216,7 +216,7 @@ signup.onclick = () => {
 // // Three JS 
 
 function init() {
-  var stats = initStats();
+  // var stats = initStats();
   // create a scene, that will hold all our elements such as objects, cameras and lights.
   var scene = new THREE.Scene();
   // create a camera, which defines where we're looking at.
@@ -224,7 +224,7 @@ function init() {
   // create a render and set the size
   var webGLRenderer = new THREE.WebGLRenderer();
   webGLRenderer.setClearColor(new THREE.Color(0x000, 1.0));
-  webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+  webGLRenderer.setSize(400, 400);
   webGLRenderer.shadowMapEnabled = true;
   // position and point the camera to the center of the scene
   camera.position.x = 150;
@@ -240,45 +240,45 @@ function init() {
   // call the render function
   var step = 0;
   // setup the control gui
-  var controls = new function () {
-    // we need the first child, since it's a multimaterial
-  };
+  // var controls = new function () {
+  //   // we need the first child, since it's a multimaterial
+  // };
   var group;
-  var gui = new dat.GUI();
+  //var gui = new dat.GUI();
   // model from http://www.thingiverse.com/thing:69709
   var loader = new THREE.STLLoader();
   var group = new THREE.Object3D();
   loader.load(
-    "https://firebasestorage.googleapis.com/v0/b/orbit-343b4.appspot.com/o/!!!TESTER!!!Switch%20holder.stl?alt=media&token=5a604dfe-e9e5-4e8f-970a-d49a5fe79e5e",
+    "./assets/models/Duck.stl",
     function(geometry) {
       console.log(geometry);
-      var mat = new THREE.MeshLambertMaterial({ color: 0x7777ff });
+      var mat = new THREE.MeshLambertMaterial({ color: 0x4C4747 });
       group = new THREE.Mesh(geometry, mat);
-      group.rotation.y = -0.5 * Math.PI;
-      group.scale.set(0.6, 0.6, 0.6);
+      group.rotation.x = -0.5 * Math.PI;
+      group.scale.set(1, 1, 1);
       scene.add(group);
     }
   );
   render();
   function render() {
-    stats.update();
+    //stats.update();
     if (group) {
       group.rotation.z += 0.006;
       // group.rotation.x+=0.006;
     }
     // render using requestAnimationFrame
-    requestAnimationFrame(render);
+   requestAnimationFrame(render);
     webGLRenderer.render(scene, camera);
   }
-  function initStats() {
-    var stats = new Stats();
-    stats.setMode(0); // 0: fps, 1: ms
-    // Align top-left
-    stats.domElement.style.position = 'absolute';
-    stats.domElement.style.left = '0px';
-    stats.domElement.style.top = '0px';
-    document.getElementById("Stats-output").appendChild(stats.domElement);
-    return stats;
-  }
+  // function initStats() {
+  //   var stats = new Stats();
+  //   stats.setMode(0); // 0: fps, 1: ms
+  //   // Align top-left
+  //   stats.domElement.style.position = 'absolute';
+  //   stats.domElement.style.left = '0px';
+  //   stats.domElement.style.top = '0px';
+  //   document.getElementById("Stats-output").appendChild(stats.domElement);
+  //   return stats;
+  // }
 }
 window.onload = init;
