@@ -51,13 +51,12 @@
 
   <div id="modal">
     <div class="content">
-      <form>
+      <form id="form">
         <h1>Login</h1>
         <div id="firebaseui-auth-container"></div>
         <input type="email" name="email" id="email" placeholder="Email" required />
-        <input type="text" name="username" id="username" placeholder="Username" required />
         <input type="password" name="password" id="password" minlength="8"
-        maxlength="16" placeholder="Password" required /> 
+        maxlength="16" placeholder="Password (minimum 8 characters)" required /> 
         <input id="submit" type="button" value="Sign Up" />
       </form>
     </div>

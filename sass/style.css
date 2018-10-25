@@ -222,4 +222,10 @@ button:focus {
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
+
+.wrong {
+  border: 2px solid #FC4747;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
 /*# sourceMappingURL=style.css.map */

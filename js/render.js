@@ -95,9 +95,19 @@ window.onclick = (e) => {
 var submitForm = document.getElementById("submit");
 submitForm.onclick = () => {
   var email = document.getElementById("email").value;
-  var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
-  console.log(email + "\n" + username + "\n" + password);
+  if (email == " " || password == "") {
+    var errorCon = document.createElement("h1")
+    var errorMsg = document.createTextNode("Hey you forgot some information! 😯");
+    errorCon.appendChild(errorMsg);
+    var form = document.getElementById("form");
+    form.append(errorCon);
+    var emailRef = document.getElementById("email");
+    var passwordRef = document.getElementById("password")
+    emailRef.classList.add("wrong");
+    passwordRef.classList.add("wrong");
+    return;    
+  }
   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
