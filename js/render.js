@@ -216,7 +216,6 @@ signup.onclick = () => {
 // // Three JS 
 
 function init() {
-  // var stats = initStats();
   // create a scene, that will hold all our elements such as objects, cameras and lights.
   var scene = new THREE.Scene();
   // create a camera, which defines where we're looking at.
@@ -240,12 +239,7 @@ function init() {
   // call the render function
   var step = 0;
   // setup the control gui
-  // var controls = new function () {
-  //   // we need the first child, since it's a multimaterial
-  // };
   var group;
-  //var gui = new dat.GUI();
-  // model from http://www.thingiverse.com/thing:69709
   var loader = new THREE.STLLoader();
   var group = new THREE.Object3D();
   loader.load(
