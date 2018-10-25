@@ -229,9 +229,17 @@ button:focus {
   border: 2px solid #FC4747;
 }
 
+.right {
+  border: 2px solid #7AE582;
+}
+
 .fadein {
   -webkit-animation: fadeIn 1.75s ease;
           animation: fadeIn 1.75s ease;
+}
+
+.fadeout {
+  animation: fadeIn 1.75s ease reverse;
 }
 
 @-webkit-keyframes shake {

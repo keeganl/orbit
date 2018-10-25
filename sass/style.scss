@@ -180,9 +180,16 @@ button:focus {
   animation: shake .75s ease;
   border: 2px solid #FC4747;
 }
+.right {
+  border: 2px solid #7AE582;
+}
 
 .fadein {
   animation: fadeIn 1.75s ease;
+}
+
+.fadeout {
+  animation: fadeIn 1.75s ease reverse;
 }
 
 

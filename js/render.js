@@ -92,6 +92,13 @@ window.onclick = (e) => {
   }
 }
 
+function cleanUp() {
+  
+}
+
+const form = document.getElementById("form");
+const emailRef = document.getElementById("email");
+const passwordRef = document.getElementById("password");
 var submitForm = document.getElementById("submit");
 submitForm.onclick = () => {
   var email = document.getElementById("email").value;
@@ -101,13 +108,14 @@ submitForm.onclick = () => {
     var errorMsg = document.createTextNode("Hey you forgot some information! 😯");
     errorCon.appendChild(errorMsg);
     errorCon.classList.add("fadein");
-    var form = document.getElementById("form");
-    var emailRef = document.getElementById("email");
-    var passwordRef = document.getElementById("password");
     form.append(errorCon);
     emailRef.classList.add("wrong");
-    passwordRef.classList.add("wrong");
-    return;    
+    passwordRef.classList.add("wrong"); 
+    setTimeout(() => {
+      emailRef.classList.remove("wrong");
+      passwordRef.classList.remove("wrong");
+      errorCon.remove();
+    }, 3500);
   }
   firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
     // Handle Errors here.
@@ -115,6 +123,20 @@ submitForm.onclick = () => {
     var errorMessage = error.message;
     // ...
   });
+  emailRef.classList.add("right");
+  passwordRef.classList.add("right");
+  var successCon = document.createElement("h1");
+  var successMsg = document.createTextNode("🎉Thanks for signing up!🎉");
+  successCon.appendChild(successMsg);
+  successCon.classList.add("fadein");
+  form.append(successCon);
+  setTimeout(() => {
+    emailRef.classList.remove("right");
+    passwordRef.classList.remove("right");
+    successCon.remove();
+    form.reset();
+  }, 3500)
+  
 }
 
 
