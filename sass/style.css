@@ -49,8 +49,24 @@ canvas {
   height: 35px;
 }
 
-.container > .topbar div {
+.container > .topbar > .topbtns {
   margin: 1em;
+}
+
+.topbtns {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+#user:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+p#welcome {
+  margin-left: 4em;
 }
 
 .container > .sidebar {
@@ -68,6 +84,11 @@ canvas {
   padding-top: 1em;
 }
 
+.container > .sidebar input {
+  width: 160px;
+  border-radius: 1em;
+}
+
 h1#titletag {
   text-align: center;
   margin-left: 0.25em;
@@ -83,11 +104,21 @@ h1#titletag {
   border: 0;
 }
 
-.item {
+.item a {
   text-align: left;
-  padding: .25em;
+  padding: .5em;
+  margin: .5em;
   font-weight: bold;
-  font-size: .5em;
+  font-size: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  color: #FFF;
+}
+
+.item a:hover {
+  color: #808080;
 }
 
 .container > .main {
@@ -140,18 +171,6 @@ input[type="file"] {
 .file-input {
   padding: 1em 2em;
   cursor: pointer;
-}
-
-.topbtns {
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.topbtns:hover {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
 }
 
 #modal {

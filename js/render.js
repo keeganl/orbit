@@ -12,7 +12,7 @@ firebase.initializeApp(config);
 
 // Accessing HTML elements
 var drawerbtn = document.querySelector(".drawerbtn");
-var sidebar = document.querySelector(".sidebar")
+var sidebar = document.querySelector(".sidebar");
 const main = document.querySelector(".main");
 var fileIO = document.querySelector("#files");
 
@@ -64,18 +64,24 @@ fileIO.onchange = () => {
   task
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
+      var div = document.createElement("div");
+      var title = document.createElement("p");
+      var clickURL = document.createElement("a");
+      var urlWords = document.createTextNode(name);
+
+      clickURL.appendChild(urlWords);
+      clickURL.href = url;
+      clickURL.target = "_blank";
+      
+      title.appendChild(clickURL);
+      div.appendChild(title);
+      div.classList.add("item");
+
+      var searchBar = document.querySelector(".search");
+      searchBar.appendChild(div);
       console.log(url);
     })
     .catch(console.error);
-  var div = document.createElement("div");
-  var title = document.createElement("p");
-  var body = document.createTextNode(name + metadata.contentType);
-  title.appendChild(body);
-  div.appendChild(title);
-  div.classList.add("item");
-
-  var fileTag = document.querySelector("#titletag");
-  fileTag.appendChild(div);
 }
 
 // Modal
