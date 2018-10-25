@@ -252,7 +252,7 @@ function init() {
     "./assets/models/Duck.stl",
     function(geometry) {
       console.log(geometry);
-      var mat = new THREE.MeshLambertMaterial({ color: 0x4C4747 });
+      var mat = new THREE.MeshLambertMaterial({ color: "#FDCA40" });
       group = new THREE.Mesh(geometry, mat);
       group.rotation.x = -0.5 * Math.PI;
       group.scale.set(1, 1, 1);
