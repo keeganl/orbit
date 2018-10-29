@@ -7,36 +7,40 @@ var config = {
   storageBucket: process.env.storageBucket,
   messagingSenderId: process.env.messagingSenderId
 };
-
 firebase.initializeApp(config);
 
+
+
+// Variables
 // Accessing HTML elements
 var drawerbtn = document.querySelector(".drawerbtn");
 var sidebar = document.querySelector(".sidebar");
 const main = document.querySelector(".main");
 var fileIO = document.querySelector("#files");
+var storageBtn = document.querySelector(".store");
+// Database stuff
+var filenames = [];
+var users = [];
+// Reference to the storage
+const ref = firebase.storage().ref();
+// Reference to the database
+var database = firebase.database();
+// User Auth
+var login = document.getElementById("login");
+var signup = document.getElementById("sign");
+const form = document.getElementById("form");
+const emailRef = document.getElementById("email");
+const passwordRef = document.getElementById("password");
+const submitForm = document.getElementById("submit");
+const welcome = document.getElementById("welcome");
+const deleteBtn = document.querySelector(".deletebtn");
+// Modal
+var modalBtn = document.querySelector("#user");
+var modal = document.querySelector("#modal");
 
 
-var provider = new firebase.auth.GithubAuthProvider();
-provider.addScope("repo");
 
-firebase.auth().signInWithPopup(provider).then(function (result) {
-  // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-  var token = result.credential.accessToken;
-  // The signed-in user info.
-  var user = result.user;
-  // ...
-}).catch(function (error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
-
+// Functions 
 // Push sidebar content
 function drawerCheck() {
   if (sidebar.style.width == "0px" && main.style.marginLeft == "0px") {
@@ -47,16 +51,21 @@ function drawerCheck() {
     main.style.marginLeft = "0px";
   }
 }
-
-drawerbtn.onclick = () => {
-  drawerCheck();
-};
-
-// Push file to firebase db
+// Push filenames to db with user id
+function storeFilenames(filenames, users) {
+  database.ref('files/').set({
+    filenames: filenames
+  });
+  database.ref('users/').set({
+    usernames: users
+  })
+  console.log("Success");
+}
+// Push file to firebase storage 
 fileIO.onchange = () => {
-  const ref = firebase.storage().ref();
   const file = document.querySelector("#input").files[0];
-  const name = file.name;
+  var name = file.name;
+  filenames.push(name);
   const metadata = {
     contentType: file.type
   };
@@ -64,6 +73,7 @@ fileIO.onchange = () => {
   task
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
+
       var div = document.createElement("div");
       var title = document.createElement("p");
       var clickURL = document.createElement("a");
@@ -72,7 +82,8 @@ fileIO.onchange = () => {
       clickURL.appendChild(urlWords);
       clickURL.href = url;
       clickURL.target = "_blank";
-      
+
+
       title.appendChild(clickURL);
       div.appendChild(title);
       div.classList.add("item");
@@ -82,33 +93,8 @@ fileIO.onchange = () => {
       console.log(url);
     })
     .catch(console.error);
+  console.log(filenames);
 }
-
-// Modal
-var modalBtn = document.querySelector("#user");
-var modal = document.querySelector("#modal");
-
-modalBtn.onclick = () => {
-  modal.style.display = "block";
-}
-
-window.onclick = (e) => {
-  if(e.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-function modalExit() {
-  modal.style.display = "none";
-}
-
-var login = document.getElementById("login");
-var signup = document.getElementById("sign");
-const form = document.getElementById("form");
-const emailRef = document.getElementById("email");
-const passwordRef = document.getElementById("password");
-const submitForm = document.getElementById("submit");
-const welcome = document.getElementById("welcome")
 
 function createUser(email, password) {
   firebase
@@ -119,6 +105,7 @@ function createUser(email, password) {
       var errorMessage = error.message;
       console.log(errorCode + errorMessage);
     });
+
   emailRef.classList.add("right");
   passwordRef.classList.add("right");
   var successCon = document.createElement("h1");
@@ -126,6 +113,7 @@ function createUser(email, password) {
   successCon.appendChild(successMsg);
   successCon.classList.add("fadein");
   form.append(successCon);
+
   setTimeout(() => {
     emailRef.classList.remove("right");
     passwordRef.classList.remove("right");
@@ -133,21 +121,23 @@ function createUser(email, password) {
     form.reset();
     modalExit();
   }, 3500)
-  
+  users.push(email);
+  console.log(users);
 }
 
 function signInUser(email, password) {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .catch(function(error) {
+    .catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log(errorCode + errorMessage);
     });
+
   emailRef.classList.add("right");
   passwordRef.classList.add("right");
-  var splitEmail = email.split("@"); 
+  var splitEmail = email.split("@");
   console.log(splitEmail);
   const username = splitEmail[0];
   var successCon = document.createElement("h1");
@@ -155,15 +145,17 @@ function signInUser(email, password) {
   successCon.appendChild(successMsg);
   successCon.classList.add("fadein");
   form.append(successCon);
+
   setTimeout(() => {
     emailRef.classList.remove("right");
     passwordRef.classList.remove("right");
     successCon.remove();
     form.reset();
-    welcome.innerHTML = "Hey, " + username;
+    welcome.innerHTML = "Hey, " + username;[]
     modalExit();
   }, 3500);
-  
+  users.push(email);
+  console.log(users);
 }
 
 function noInfo() {
@@ -181,6 +173,47 @@ function noInfo() {
   }, 3500);
 }
 
+// Deleting the files in the Firebase 
+function deleteAll(all) {
+  all.delete().then(function () {
+    console.log("Files deleted.");
+  }).catch(function (error) {
+    console.log("error");
+  })
+}
+
+
+
+
+// Event listeners
+deleteBtn.onclick = () => {
+  deleteAll(all);
+};
+
+drawerbtn.onclick = () => {
+  drawerCheck();
+};
+
+storageBtn.onclick = () => {
+  storeFilenames(filenames, users);
+  console.log(filenames);
+  console.log(users);
+};
+
+modalBtn.onclick = () => {
+  modal.style.display = "block";
+}
+
+window.onclick = (e) => {
+  if(e.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+function modalExit() {
+  modal.style.display = "none";
+}
+
 login.onclick = () => {
   if (signup.classList.contains("borderbot")) {
     signup.classList.remove("borderbot");
@@ -196,7 +229,6 @@ login.onclick = () => {
     signInUser(email, password);
   }
 }
-
 signup.onclick = () => {
   if (login.classList.contains("borderbot")) {
     login.classList.remove("borderbot");
@@ -213,7 +245,14 @@ signup.onclick = () => {
   }
 }
 
-// // Three JS 
+
+
+
+
+
+
+
+// Three JS 
 
 function init() {
   // create a scene, that will hold all our elements such as objects, cameras and lights.
@@ -243,7 +282,7 @@ function init() {
   var loader = new THREE.STLLoader();
   var group = new THREE.Object3D();
   loader.load(
-    "./assets/models/Duck.stl",
+    "./assets/models/Ornament.stl",
     function(geometry) {
       console.log(geometry);
       var mat = new THREE.MeshLambertMaterial({ color: "#FDCA40" });
