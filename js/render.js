@@ -73,7 +73,7 @@ fileIO.onchange = () => {
   task
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
-
+      //const URLref = url;
       var div = document.createElement("div");
       var title = document.createElement("p");
       var clickURL = document.createElement("a");
@@ -90,10 +90,12 @@ fileIO.onchange = () => {
 
       var searchBar = document.querySelector(".search");
       searchBar.appendChild(div);
-      console.log(url);
+      //console.log(url);
+      renderObject(url);
     })
     .catch(console.error);
   console.log(filenames);
+  
 }
 
 function createUser(email, password) {
@@ -254,7 +256,7 @@ signup.onclick = () => {
 
 // Three JS 
 
-function init() {
+function renderObject(url) {
   // create a scene, that will hold all our elements such as objects, cameras and lights.
   var scene = new THREE.Scene();
   // create a camera, which defines where we're looking at.
@@ -282,7 +284,7 @@ function init() {
   var loader = new THREE.STLLoader();
   var group = new THREE.Object3D();
   loader.load(
-    "./assets/models/Ornament.stl",
+    url,
     function(geometry) {
       console.log(geometry);
       var mat = new THREE.MeshLambertMaterial({ color: "#FDCA40" });
@@ -302,4 +304,3 @@ function init() {
     webGLRenderer.render(scene, camera);
   }
 }
-window.onload = init;
