@@ -264,7 +264,7 @@ function renderObject(url) {
   // create a render and set the size
   var webGLRenderer = new THREE.WebGLRenderer( {alpha: true} );
   webGLRenderer.setClearColor(0x000000, 0);
-  webGLRenderer.setSize(400, 400);
+  webGLRenderer.setSize(600, 400);
   webGLRenderer.shadowMapEnabled = true;
   // position and point the camera to the center of the scene
   camera.position.x = 150;
@@ -280,7 +280,7 @@ function renderObject(url) {
   // call the render function
   var step = 0;
   // setup the control gui
-  var group;
+  var group = [];
   var loader = new THREE.STLLoader();
   var group = new THREE.Object3D();
   loader.load(
@@ -304,3 +304,4 @@ function renderObject(url) {
     webGLRenderer.render(scene, camera);
   }
 }
+
