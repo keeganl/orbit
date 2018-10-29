@@ -3,8 +3,8 @@
 An application that lets you view the 3D models on your computer in gallery format. Built with Electron.
 
 ### TODO: 
+- [ ] Look into how to store the user state and keep them logged in, etc...
 - [ ] Consistent way to pull URLs from firebase
-  - Push UIDs to arry along with filenames
   - Storing the users UID in Custom metadata
   - Search for UID 
 - [ ] Caching data somehow
