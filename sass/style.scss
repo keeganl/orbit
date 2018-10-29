@@ -82,6 +82,30 @@ h1#titletag {
   width: 100%;
   border: 0;
 }
+.deletebtn {
+  padding: 1em;
+  border: 0;
+  border-radius: 0.5em;
+  background-color: #FC4747;
+  color: #FFF;  
+  transition: 0.5s;
+}
+.deletebtn:hover {
+  transform: scale(1.25);
+  transition: 0.3s;
+}
+.store {
+  padding: 1em;
+  border: 0;
+  border-radius: 0.5em;
+  background-color: #7AE582;
+  color: #FFF;  
+  transition: 0.5s;
+}
+.store:hover {
+  transform: scale(1.25);
+  transition: 0.3s;
+}
 .item a {
   text-align: left;
   padding: .5em;

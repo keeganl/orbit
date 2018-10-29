@@ -104,6 +104,40 @@ h1#titletag {
   border: 0;
 }
 
+.deletebtn {
+  padding: 1em;
+  border: 0;
+  border-radius: 0.5em;
+  background-color: #FC4747;
+  color: #FFF;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.deletebtn:hover {
+  -webkit-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.store {
+  padding: 1em;
+  border: 0;
+  border-radius: 0.5em;
+  background-color: #7AE582;
+  color: #FFF;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.store:hover {
+  -webkit-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
 .item a {
   text-align: left;
   padding: .5em;
@@ -390,5 +424,17 @@ button:focus {
             transform: translateY(0px);
     opacity: 1;
   }
+}
+
+#WebGL-output {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=style.css.map */
