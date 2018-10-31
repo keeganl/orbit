@@ -326,13 +326,11 @@ signup.onclick = () => {
       return;
     }
     else if ((!email.includes("@")) || (!email.includes(".com" || ".net"))) {
-      email = 1;
       badEmail();
       return;
     }
     else if (password.length < 6) {
       badPassword();
-      password = "";
       return;
     }
     else {
@@ -363,7 +361,6 @@ function renderObject(url) {
   // create a scene, that will hold all our elements such as objects, cameras and lights.
   var scene = new THREE.Scene();
   // create a camera, which defines where we're looking at.
-  var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
   // create a render and set the size
   var webGLRenderer = new THREE.WebGLRenderer( {alpha: true} );
   webGLRenderer.setClearColor(0x000000, 0);
@@ -393,7 +390,6 @@ function renderObject(url) {
       var mat = new THREE.MeshLambertMaterial({ color: "#FDCA40" });
       group = new THREE.Mesh(geometry, mat);
       group.rotation.x = -0.5 * Math.PI;
-      group.scale.set(1, 1, 1);
       scene.add(group);
     }
   );
