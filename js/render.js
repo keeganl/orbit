@@ -13,7 +13,7 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     console.log("User is signed in.");
-    firebase.auth().signOut();
+    console.log(user.uid);
   } else {
     console.log("No user is signed in.");
   }
@@ -346,10 +346,10 @@ login.onclick = () => {
     signup.classList.remove("borderbot");
   }
 
-  if (firebase.auth().currentUser) {
-    firebase.auth().signOut();
-  } 
-  else {
+  // if (firebase.auth().currentUser) {
+  //   firebase.auth().signOut();
+  // } 
+  // else {
     login.classList.add("borderbot");
     submitForm.onclick = () => {
       var email = document.getElementById("email").value;
@@ -370,7 +370,7 @@ login.onclick = () => {
         signInUser(email, password);      
       }
     };
-  }
+  //}
 }
 
 signup.onclick = () => {
