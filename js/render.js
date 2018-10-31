@@ -138,10 +138,11 @@ function createUser(email, password) {
   setTimeout(() => {
     emailRef.classList.remove("right");
     passwordRef.classList.remove("right");
+    successCon.classList.remove("fadeIn");
     successCon.remove();
     form.reset();
-    modalExit();
-  }, 3500)
+    // modalExit();
+  }, 2000)
   users.push(email);
   console.log(users);
 }
@@ -176,10 +177,48 @@ function signInUser(email, password) {
     logout.style.display = "inline";
     modalBtn.style.display = "none";
     modalExit();
+  }, 2500);
+  users.push(email);
+  console.log(users);
+}
+
+function signInUserforLogin(email, password) {
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode + errorMessage);
+    });
+
+  // emailRef.classList.add("right");
+  // passwordRef.classList.add("right");
+  var splitEmail = email.split("@");
+  console.log(splitEmail);
+  const username = splitEmail[0];
+  var successCon = document.createElement("h1");
+  var successMsg = document.createTextNode(
+    "🎉Welcome " + username + " 🎉"
+  );
+  successCon.appendChild(successMsg);
+  successCon.classList.add("fadein");
+  form.append(successCon);
+
+  setTimeout(() => {
+    emailRef.classList.remove("right");
+    passwordRef.classList.remove("right");
+    successCon.remove();
+    form.reset();
+    welcome.innerHTML = "Hey, " + username;
+    logout.style.display = "inline";
+    modalBtn.style.display = "none";
+    modalExit();
   }, 2000);
   users.push(email);
   console.log(users);
 }
+
 
 function noInfo() {
   var errorCon = document.createElement("h1");
@@ -239,7 +278,6 @@ function bothBad() {
     form.reset();
   }, 2000);
 }
-
 
 // Deleting the files in the Firebase 
 function deleteAll(all) {
@@ -334,7 +372,22 @@ signup.onclick = () => {
       return;
     }
     else {
-      createUser(email, password);
+      function signInAfter2() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve(signInUserforLogin(email, password));
+          }, 3000);
+        });
+      }
+
+      async function signUpSignIn() {
+        createUser(email, password);
+        console.log("Signing in");
+        var result = await signInAfter2();
+        console.log(result);
+      };
+
+      signUpSignIn();
     }
   }
 }
