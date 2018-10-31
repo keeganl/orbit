@@ -58,7 +58,11 @@ canvas {
   transition: 0.5s;
 }
 
-#user:hover {
+#logout {
+  display: none;
+}
+
+#user:hover, #logout:hover {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
   -webkit-transition: 0.3s;

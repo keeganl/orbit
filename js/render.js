@@ -13,6 +13,7 @@ firebase.initializeApp(config);
 
 // Variables
 // Accessing HTML elements
+var body = document.querySelector("body");
 var drawerbtn = document.querySelector(".drawerbtn");
 var sidebar = document.querySelector(".sidebar");
 const main = document.querySelector(".main");
@@ -27,6 +28,7 @@ const ref = firebase.storage().ref();
 var database = firebase.database();
 // User Auth
 var login = document.getElementById("login");
+var logout = document.getElementById("logout");
 var signup = document.getElementById("sign");
 const form = document.getElementById("form");
 const emailRef = document.getElementById("email");
@@ -74,19 +76,36 @@ fileIO.onchange = () => {
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
       //const URLref = url;
-      var div = document.createElement("div");
-      var title = document.createElement("p");
-      var clickURL = document.createElement("a");
-      var urlWords = document.createTextNode(name);
+      if (name.length > 25) {
+        var div = document.createElement("div");
+        var title = document.createElement("p");
+        var marquee = document.createElement("marquee")
+        var clickURL = document.createElement("a");
+        var urlWords = document.createTextNode(name);
 
-      clickURL.appendChild(urlWords);
-      clickURL.href = url;
-      clickURL.target = "_blank";
+        clickURL.appendChild(urlWords);
+        clickURL.href = url;
+        clickURL.target = "_blank";
 
+        marquee.appendChild(clickURL);
+        title.appendChild(marquee);
+        div.appendChild(title);
+        div.classList.add("item");
+      }
+      else {
+        var div = document.createElement("div");
+        var title = document.createElement("p");
+        var clickURL = document.createElement("a");
+        var urlWords = document.createTextNode(name);
 
-      title.appendChild(clickURL);
-      div.appendChild(title);
-      div.classList.add("item");
+        clickURL.appendChild(urlWords);
+        clickURL.href = url;
+        clickURL.target = "_blank";
+
+        title.appendChild(clickURL);
+        div.appendChild(title);
+        div.classList.add("item");
+      }
 
       var searchBar = document.querySelector(".search");
       searchBar.appendChild(div);
@@ -153,9 +172,11 @@ function signInUser(email, password) {
     passwordRef.classList.remove("right");
     successCon.remove();
     form.reset();
-    welcome.innerHTML = "Hey, " + username;[]
+    welcome.innerHTML = "Hey, " + username;
+    logout.style.display = "inline";
+    modalBtn.style.display = "none";
     modalExit();
-  }, 3500);
+  }, 2000);
   users.push(email);
   console.log(users);
 }
@@ -172,8 +193,53 @@ function noInfo() {
     emailRef.classList.remove("wrong");
     passwordRef.classList.remove("wrong");
     errorCon.remove();
-  }, 3500);
+  }, 2000);
 }
+
+function badEmail() {
+  var errorCon = document.createElement("h1");
+  var errorMsg = document.createTextNode("Thats not a valid email! 👎");
+  errorCon.appendChild(errorMsg);
+  errorCon.classList.add("fadein");
+  form.append(errorCon);
+  emailRef.classList.add("wrong");
+  setTimeout(() => {
+    emailRef.classList.remove("wrong");
+    errorCon.remove();
+    form.reset();
+  }, 2000);
+}
+
+function badPassword() {
+  var errorCon = document.createElement("h1");
+  var errorMsg = document.createTextNode("You entered a weak password! 👎");
+  errorCon.appendChild(errorMsg);
+  errorCon.classList.add("fadein");
+  form.append(errorCon);
+  passwordRef.classList.add("wrong");
+  setTimeout(() => {
+    passwordRef.classList.remove("wrong");
+    errorCon.remove();
+    form.reset();
+  }, 2000);
+}
+
+function bothBad() {
+  var errorCon = document.createElement("h1");
+  var errorMsg = document.createTextNode("Both fields are incorrect! 😕");
+  errorCon.appendChild(errorMsg);
+  errorCon.classList.add("fadein");
+  form.append(errorCon);
+  emailRef.classList.add("wrong");
+  passwordRef.classList.add("wrong");
+  setTimeout(() => {
+    emailRef.classList.remove("wrong");
+    passwordRef.classList.remove("wrong");
+    errorCon.remove();
+    form.reset();
+  }, 2000);
+}
+
 
 // Deleting the files in the Firebase 
 function deleteAll(all) {
@@ -188,6 +254,9 @@ function deleteAll(all) {
 
 
 // Event listeners
+body.onload = () => {
+  login.click();
+}
 deleteBtn.onclick = () => {
   deleteAll(all);
 };
@@ -229,8 +298,17 @@ login.onclick = () => {
       return;
     }
     signInUser(email, password);
+    var user = firebase.auth().currentUser;
+
+    if (user) {
+      console.log(user.email + " is signed in.\n");
+      console.log(user.uid + " UID\n");
+    } else {
+      console.log("No one is signed in.");
+    }
   }
 }
+
 signup.onclick = () => {
   if (login.classList.contains("borderbot")) {
     login.classList.remove("borderbot");
@@ -243,11 +321,36 @@ signup.onclick = () => {
       noInfo();
       return;
     }
-    createUser(email, password);
+    else if ((!email.includes("@") || (!email.includes(".com" || ".net"))) && (password.length < 6)) {
+      bothBad();
+      return;
+    }
+    else if ((!email.includes("@")) || (!email.includes(".com" || ".net"))) {
+      email = 1;
+      badEmail();
+      return;
+    }
+    else if (password.length < 6) {
+      badPassword();
+      password = "";
+      return;
+    }
+    else {
+      createUser(email, password);
+    }
   }
 }
 
-
+logout.onclick = () => {
+  firebase.auth().signOut().then(function () {
+    console.log("Sign-out successful.");
+    welcome.innerHTML = "Welcome to Orbit";
+    modalBtn.style.display = "inline";
+    logout.style.display = "none";
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
 
 
 

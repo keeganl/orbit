@@ -44,7 +44,10 @@ canvas {
 .topbtns {
   transition: 0.5s
 }
-#user:hover {
+#logout {
+  display: none;
+}
+#user:hover, #logout:hover, {
   transform: scale(1.2);
   transition: 0.3s;
 }
