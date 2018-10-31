@@ -203,10 +203,9 @@ function signInUser(email, password) {
         var errorMessage = error.message;
         console.log(errorCode);
         if (errorCode === "auth/wrong-password") {
-          alert("wrong password");
           wrongPassword();
         } else {
-          alert(errorMessage);
+          bothBad();
         }
       });
   }
@@ -237,7 +236,7 @@ function badEmail() {
   setTimeout(() => {
     emailRef.classList.remove("wrong");
     errorCon.remove();
-    form.reset();
+    emailRef.value = "";
   }, 2000);
 }
 
@@ -251,7 +250,7 @@ function badPassword() {
   setTimeout(() => {
     passwordRef.classList.remove("wrong");
     errorCon.remove();
-    form.reset();
+    passwordRef.value = "";
   }, 2000);
 }
 
@@ -266,7 +265,7 @@ function wrongPassword() {
   setTimeout(() => {
     passwordRef.classList.remove("wrong");
     errorCon.remove();
-    form.reset();
+    passwordRef.value = "";
   }, 2000);
 
 }
@@ -283,7 +282,8 @@ function bothBad() {
     emailRef.classList.remove("wrong");
     passwordRef.classList.remove("wrong");
     errorCon.remove();
-    form.reset();
+    emailRef.value = "";
+    passwordRef.value = "";
   }, 2000);
 }
 
