@@ -133,35 +133,36 @@ function createUser(email, password) {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      emailRef.classList.add("right");
+      passwordRef.classList.add("right");
+      var splitEmail = email.split("@");
+      console.log(splitEmail);
+      const username = splitEmail[0];
+      var successCon = document.createElement("h1");
+      var successMsg = document.createTextNode("🎉Welcome " + capitalizeFirstLetter(username) + " 🎉");
+      successCon.appendChild(successMsg);
+      successCon.classList.add("fadein");
+      form.append(successCon);
+
+      setTimeout(() => {
+        emailRef.classList.remove("right");
+        passwordRef.classList.remove("right");
+        successCon.remove();
+        form.reset();
+        welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
+        logout.style.display = "inline";
+        modalBtn.style.display = "none";
+        modalExit();
+      }, 2500);
+      users.push(email);
+      console.log(users);
+    })
     .catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log(errorCode + errorMessage);
     });
-
-  emailRef.classList.add("right");
-  passwordRef.classList.add("right");
-  var splitEmail = email.split("@");
-  console.log(splitEmail);
-  const username = splitEmail[0];
-  var successCon = document.createElement("h1");
-  var successMsg = document.createTextNode("🎉Welcome " + capitalizeFirstLetter(username) + " 🎉");
-  successCon.appendChild(successMsg);
-  successCon.classList.add("fadein");
-  form.append(successCon);
-
-  setTimeout(() => {
-    emailRef.classList.remove("right");
-    passwordRef.classList.remove("right");
-    successCon.remove();
-    form.reset();
-    welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
-    logout.style.display = "inline";
-    modalBtn.style.display = "none";
-    modalExit();
-  }, 2500);
-  users.push(email);
-  console.log(users);
 }
 
 function signInUser(email, password) {
