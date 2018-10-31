@@ -11,7 +11,6 @@
 }
 
 body {
-  -webkit-app-region: drag;
   height: 100%;
   overflow: hidden;
   background-color: #1E2022;
@@ -35,6 +34,7 @@ canvas {
 }
 
 .container > .topbar {
+  -webkit-app-region: drag;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

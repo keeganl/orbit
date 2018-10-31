@@ -1,3 +1,4 @@
+
 // Initialize Firebase
 var config = {
   apiKey: process.env.apiKey,
@@ -9,7 +10,14 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    console.log("User is signed in.");
+    firebase.auth().signOut();
+  } else {
+    console.log("No user is signed in.");
+  }
+});
 
 // Variables
 // Accessing HTML elements
@@ -39,11 +47,15 @@ const deleteBtn = document.querySelector(".deletebtn");
 // Modal
 var modalBtn = document.querySelector("#user");
 var modal = document.querySelector("#modal");
-
+var flag = true;
 
 
 // Functions 
 // Push sidebar content
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function drawerCheck() {
   if (sidebar.style.width == "0px" && main.style.marginLeft == "0px") {
     sidebar.style.width = "200px";
@@ -129,41 +141,11 @@ function createUser(email, password) {
 
   emailRef.classList.add("right");
   passwordRef.classList.add("right");
-  var successCon = document.createElement("h1");
-  var successMsg = document.createTextNode("🎉Thanks for signing up!🎉");
-  successCon.appendChild(successMsg);
-  successCon.classList.add("fadein");
-  form.append(successCon);
-
-  setTimeout(() => {
-    emailRef.classList.remove("right");
-    passwordRef.classList.remove("right");
-    successCon.classList.remove("fadeIn");
-    successCon.remove();
-    form.reset();
-    // modalExit();
-  }, 2000)
-  users.push(email);
-  console.log(users);
-}
-
-function signInUser(email, password) {
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode + errorMessage);
-    });
-
-  emailRef.classList.add("right");
-  passwordRef.classList.add("right");
   var splitEmail = email.split("@");
   console.log(splitEmail);
   const username = splitEmail[0];
   var successCon = document.createElement("h1");
-  var successMsg = document.createTextNode("🎉Welcome back " + username + " 🎉");
+  var successMsg = document.createTextNode("🎉Welcome " + capitalizeFirstLetter(username) + " 🎉");
   successCon.appendChild(successMsg);
   successCon.classList.add("fadein");
   form.append(successCon);
@@ -173,7 +155,7 @@ function signInUser(email, password) {
     passwordRef.classList.remove("right");
     successCon.remove();
     form.reset();
-    welcome.innerHTML = "Hey, " + username;
+    welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
     logout.style.display = "inline";
     modalBtn.style.display = "none";
     modalExit();
@@ -182,43 +164,53 @@ function signInUser(email, password) {
   console.log(users);
 }
 
-function signInUserforLogin(email, password) {
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode + errorMessage);
-    });
+function signInUser(email, password) {
+  //console.log(flag);
+  if (firebase.auth().currrentUser) {
+    firebase.auth().signOut();
+  } 
+  else {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        emailRef.classList.add("right");
+        passwordRef.classList.add("right");
+        var splitEmail = email.split("@");
+        console.log(splitEmail);
+        const username = splitEmail[0];
+        var successCon = document.createElement("h1");
+        var successMsg = document.createTextNode("🎉Welcome back " + capitalizeFirstLetter(username) + " 🎉");
+        successCon.appendChild(successMsg);
+        successCon.classList.add("fadein");
+        form.append(successCon);
 
-  // emailRef.classList.add("right");
-  // passwordRef.classList.add("right");
-  var splitEmail = email.split("@");
-  console.log(splitEmail);
-  const username = splitEmail[0];
-  var successCon = document.createElement("h1");
-  var successMsg = document.createTextNode(
-    "🎉Welcome " + username + " 🎉"
-  );
-  successCon.appendChild(successMsg);
-  successCon.classList.add("fadein");
-  form.append(successCon);
-
-  setTimeout(() => {
-    emailRef.classList.remove("right");
-    passwordRef.classList.remove("right");
-    successCon.remove();
-    form.reset();
-    welcome.innerHTML = "Hey, " + username;
-    logout.style.display = "inline";
-    modalBtn.style.display = "none";
-    modalExit();
-  }, 2000);
-  users.push(email);
-  console.log(users);
+        setTimeout(() => {
+          emailRef.classList.remove("right");
+          passwordRef.classList.remove("right");
+          successCon.remove();
+          form.reset();
+          welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
+          logout.style.display = "inline";
+          modalBtn.style.display = "none";
+          modalExit();
+        }, 2500);
+        users.push(email);
+        console.log(users);
+      })
+      .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        if (errorCode === "auth/wrong-password") {
+          alert("wrong password");
+          wrongPassword();
+        } else {
+          alert(errorMessage);
+        }
+      });
+  }
 }
-
 
 function noInfo() {
   var errorCon = document.createElement("h1");
@@ -263,6 +255,22 @@ function badPassword() {
   }, 2000);
 }
 
+function wrongPassword() {
+  var errorCon = document.createElement("h1");
+  var errorMsg = document.createTextNode("You entered the wrong password! 👎");
+  submitForm.disabled;
+  errorCon.appendChild(errorMsg);
+  errorCon.classList.add("fadein");
+  form.append(errorCon);
+  passwordRef.classList.add("wrong");
+  setTimeout(() => {
+    passwordRef.classList.remove("wrong");
+    errorCon.remove();
+    form.reset();
+  }, 2000);
+
+}
+
 function bothBad() {
   var errorCon = document.createElement("h1");
   var errorMsg = document.createTextNode("Both fields are incorrect! 😕");
@@ -293,7 +301,9 @@ function deleteAll(all) {
 
 // Event listeners
 body.onload = () => {
-  login.click();
+  if (firebase.auth().currentUser) {
+    firebase.auth().signOut();
+  }
 }
 deleteBtn.onclick = () => {
   deleteAll(all);
@@ -324,30 +334,52 @@ function modalExit() {
 }
 
 login.onclick = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      console.log("User is signed in.");
+    } else {
+      console.log("No user is signed in.");
+    }
+  });
   if (signup.classList.contains("borderbot")) {
     signup.classList.remove("borderbot");
   }
-  login.classList.add("borderbot");
-  submitForm.onclick = () => {
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    if ((email == "") || (password == "")) {
-      noInfo();
-      return;
-    }
-    signInUser(email, password);
-    var user = firebase.auth().currentUser;
 
-    if (user) {
-      console.log(user.email + " is signed in.\n");
-      console.log(user.uid + " UID\n");
-    } else {
-      console.log("No one is signed in.");
-    }
+  if (firebase.auth().currentUser) {
+    firebase.auth().signOut();
+  } 
+  else {
+    login.classList.add("borderbot");
+    submitForm.onclick = () => {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      if (email == "" || password == "") {
+        noInfo();
+        return;
+      } else if ((!email.includes("@") || !email.includes(".com" || ".net")) && password.length < 6) {
+        bothBad();
+        return;
+      } else if (!email.includes("@") || !email.includes(".com" || ".net")) {
+        badEmail();
+        return;
+      } else if (password.length < 6) {
+        badPassword();
+        return;
+      } else {
+        signInUser(email, password);      
+      }
+    };
   }
 }
 
 signup.onclick = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      console.log("User is signed in.");
+    } else {
+      console.log("No user is signed in.");
+    }
+  });
   if (login.classList.contains("borderbot")) {
     login.classList.remove("borderbot");
   }
@@ -372,24 +404,10 @@ signup.onclick = () => {
       return;
     }
     else {
-      function signInAfter2() {
-        return new Promise(resolve => {
-          setTimeout(() => {
-            resolve(signInUserforLogin(email, password));
-          }, 3000);
-        });
-      }
-
-      async function signUpSignIn() {
-        createUser(email, password);
-        console.log("Signing in");
-        var result = await signInAfter2();
-        console.log(result);
-      };
-
-      signUpSignIn();
+      createUser(email, password);
     }
   }
+
 }
 
 logout.onclick = () => {
@@ -402,7 +420,6 @@ logout.onclick = () => {
     console.log(error);
   });
 }
-
 
 
 

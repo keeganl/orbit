@@ -10,7 +10,6 @@
   -webkit-text-size-adjust: none; 
 } 
 body {
-  -webkit-app-region: drag;
   height: 100%; 
   overflow: hidden;
   background-color: #1E2022;
@@ -31,6 +30,7 @@ canvas {
   z-index: 100;
 }
 .container>.topbar {
+  -webkit-app-region: drag;
   display: flex;
   justify-content: flex-end;
   align-items: center;
