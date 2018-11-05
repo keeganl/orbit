@@ -11,6 +11,6 @@ An application that lets you view the 3D models on your computer in gallery form
       - Electron caching in the Appdata
       - Maybe zip or tar in Firebase
       
-- [ ] Consistent way to pull URLs from firebase
-  - Storing the users UID in Custom metadata
-  - Search for UID 
+- [x] Consistent way to pull URLs from firebase
+  - [x] Storing the users UID in Custom metadata
+  - [ ] Search for UID 
