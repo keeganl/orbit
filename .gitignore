@@ -2,4 +2,5 @@
 .env
 /libs/*
 /assets/models/*
+/release-builds
 .DS_Store
