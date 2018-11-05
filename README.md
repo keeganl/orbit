@@ -6,7 +6,7 @@ An application that lets you view the 3D models on your computer in gallery form
 
 ### TODO: 
 - [x] Look into how to store the user state and keep them logged in, etc...
-  [x] Need to show the last logged in user at the top instad of 'Welcome to Orbit'
+  - [x] Need to show the last logged in user at the top instad of 'Welcome to Orbit'
   - [ ] Caching data somehow
       - Electron caching in the Appdata
       - Maybe zip or tar in Firebase
