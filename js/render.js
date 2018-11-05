@@ -10,6 +10,9 @@ var config = {
 };
 firebase.initializeApp(config);
 
+firebase.auth().signOut();
+
+
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     console.log("User is signed in.");
@@ -122,7 +125,7 @@ function appendFile(name, url) {
   searchBar.appendChild(div);
 }
 
-function renderFile(url, name) {
+function renderFile(name, url) {
   if(name.length > 25) {
     var div = document.createElement("div");
     var title = document.createElement("p");
@@ -163,44 +166,38 @@ function getFiles() {
   var childKey;
   var childData;
   var files = [];
-  var owner;
-
+ 
   var dbRef = firebase.database().ref('/files/');
   dbRef
   .once('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {
       childKey = childSnapshot.key;
       childData = childSnapshot.val();
-      owner = childData.owner;
-      console.log(owner);
-      files.push(childData.name);
-      console.log(files);
-      });
-    })
-  .then(() => {
-    for (const i of files) {
-      if (owner == user.email) {
-        ref.child(i).getDownloadURL()
-          .then(
-            function (url) {
-              modelURL = url;
-              console.log(modelURL);
-              renderFile(modelURL, i);
-              // renderObject(modelURL);
-            })
-          .catch (() => {
-            console.log("A function does not exist with that name in storage");
-            
+      var pushedObj = {
+        name: childData.name,
+        owner: childData.owner
+      }
+      console.log(pushedObj.owner);
+      console.log(pushedObj.name);
+      files.push(pushedObj);    
+      if (pushedObj.owner == user.email) {
+        console.log(pushedObj.owner);
+        ref
+          .child(pushedObj.name)
+          .getDownloadURL()
+          .then(function (url) {
+            modelURL = url;
+            renderFile(pushedObj.name, modelURL);
           })
-          }
-        }
-    })
-  .catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode + errorMessage);
-    console.log("A file does not exist with that name in storage");    
-  }); 
+          .catch(() => {
+            console.log("A file does not exist with that name in storage");
+          });
+      }
+      else {
+        console.log("Not that user's file");
+      }  
+    });  
+  })
 }
 
 
@@ -219,14 +216,19 @@ fileIO.onchange = () => {
       ownerID: user.uid
     }
   };
-  const task = ref.child(name).put(file, metadata);
-  task
-    .then(snapshot => snapshot.ref.getDownloadURL())
-    .then(url => {      
-      appendFile(name, url);
-    })
-    .catch(console.error);
-  storeFilenames(fileObj);
+  if (user == null) {
+
+  } 
+  else {
+    const task = ref.child(name).put(file, metadata);
+    task
+      .then(snapshot => snapshot.ref.getDownloadURL())
+      .then(url => {
+        renderFile(name, url);
+      })
+      .catch(console.error);
+    storeFilenames(fileObj);
+  }
 }
 
 
@@ -409,20 +411,9 @@ body.onload = () => {
     firebase.auth().signOut();
   }
 }
-deleteBtn.onclick = () => {
-  deleteAll(all);
-};
-
 drawerbtn.onclick = () => {
   drawerCheck();
 };
-
-storageBtn.onclick = () => {
-  storeFilenames(filenames, users);
-  console.log(filenames);
-  console.log(users);
-};
-
 modalBtn.onclick = () => {
   modal.style.display = "block";
 }
