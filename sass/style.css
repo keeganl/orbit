@@ -186,7 +186,6 @@ h1#titletag {
           align-items: center;
   height: 100vh;
   width: 100%;
-  padding-top: 5em;
   background-color: #1E2022;
   color: white;
 }
@@ -211,6 +210,25 @@ h1#titletag {
   border-top-right-radius: .5em;
   border-bottom-right-radius: .5em;
   margin-right: 2em;
+}
+
+.main > .welcome-message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #4E4F50;
+  height: 100%;
+  width: 100%;
 }
 
 input[type="file"] {

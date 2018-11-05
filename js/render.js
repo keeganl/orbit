@@ -1,4 +1,3 @@
-
 // Initialize Firebase
 var config = {
   apiKey: process.env.apiKey,
@@ -12,13 +11,13 @@ firebase.initializeApp(config);
 
 firebase.auth().signOut();
 
-
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     console.log("User is signed in.");
     console.log(user.uid);
+    welcome.style.display = "none";
     getFiles();
-    welcome.innerHTML = "";
+    // welcome.innerHTML = "";
     // welcome.innerHTML = "Hey, " + user.email;
     profile.style.display = "inline";
     logout.style.display = "inline";
@@ -51,7 +50,7 @@ const form = document.getElementById("form");
 const emailRef = document.getElementById("email");
 const passwordRef = document.getElementById("password");
 const submitForm = document.getElementById("submit");
-const welcome = document.getElementById("welcome");
+const welcome = document.querySelector(".welcome-message");
 const deleteBtn = document.querySelector(".deletebtn");
 // Modal
 var modalBtn = document.querySelector("#user");
@@ -62,6 +61,7 @@ var profileModal = document.querySelector("#profile-modal");
 var searchBar = document.querySelector(".search");
 // Model URL 
 var modelURL;
+var renderCon = document.getElementById("WebGL-output");
 
 
 // Functions 
@@ -74,9 +74,13 @@ function drawerCheck() {
   if (sidebar.style.width == "0px" && main.style.marginLeft == "0px") {
     sidebar.style.width = "200px";
     main.style.marginLeft = "200px";
+    welcome.style.width = "65%";
+    renderCon.style.width = "65%";
   } else {
     sidebar.style.width = "0px";
     main.style.marginLeft = "0px";
+    welcome.style.width = "100%";
+    renderCon.style.width = "100%";
   }
 }
 
@@ -393,14 +397,6 @@ function bothBad() {
   }, 2000);
 }
 
-// Deleting the files in the Firebase 
-function deleteAll(all) {
-  all.delete().then(function () {
-    console.log("Files deleted.");
-  }).catch(function (error) {
-    console.log("error");
-  })
-}
 
 
 
@@ -515,10 +511,16 @@ signup.onclick = () => {
 logout.onclick = () => {
   firebase.auth().signOut().then(function () {
     console.log("Sign-out successful.");
-    welcome.innerHTML = "Welcome to Orbit";
+    // welcome.innerHTML = "Welcome to Orbit";
     modalBtn.style.display = "inline";
+    welcome.style.display = "flex";
+    renderCon.innerHTML = "";
     logout.style.display = "none";
     profile.style.display = "none";
+    var elmsToRemove = document.getElementsByClassName("item");
+    for (const i of elmsToRemove) {
+      i.remove();
+    }
   }).catch(function (error) {
     console.log(error);
   });
@@ -550,7 +552,7 @@ function renderObject(url) {
   spotLight.position.set(100, 100, 100);
   scene.add(spotLight);
   // add the output of the renderer to the html element
-  document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+  renderCon.appendChild(webGLRenderer.domElement);
   // call the render function
   var step = 0;
   // setup the control gui
