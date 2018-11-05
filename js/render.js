@@ -79,10 +79,43 @@ function drawerCheck() {
 
 // Push filenames to db with user id
 function storeFilenames(filenames) {
-  database.ref('files/').set({
+  database.ref('files').set({
     filenames: filenames
   });
   console.log("Success");
+}
+
+function appendFile(name, url) {
+  if (name.length > 25) {
+    var div = document.createElement("div");
+    var title = document.createElement("p");
+    var marquee = document.createElement("marquee");
+    var clickURL = document.createElement("a");
+    var urlWords = document.createTextNode(name);
+
+    clickURL.appendChild(urlWords);
+    clickURL.href = url;
+    clickURL.target = "_blank";
+
+    marquee.appendChild(clickURL);
+    title.appendChild(marquee);
+    div.appendChild(title);
+    div.classList.add("item");
+  } else {
+    var div = document.createElement("div");
+    var title = document.createElement("p");
+    var clickURL = document.createElement("a");
+    var urlWords = document.createTextNode(name);
+
+    clickURL.appendChild(urlWords);
+    clickURL.href = url;
+    clickURL.target = "_blank";
+
+    title.appendChild(clickURL);
+    div.appendChild(title);
+    div.classList.add("item");
+  }
+  searchBar.appendChild(div);
 }
 
 function renderFile(url, name) {
@@ -125,27 +158,33 @@ function getFiles() {
   var user = firebase.auth().currentUser;
   var childKey;
   var childData;
-  var filename;
+  var files = [];
+  var owner;
+
   var dbRef = firebase.database().ref('/files/filenames');
   dbRef.once('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {
       childKey = childSnapshot.key;
       childData = childSnapshot.val();
+      owner = childData.owner;
       //console.log(childKey);
-      filename = childData.name;
-      console.log(filename);
-      if (childData.owner == user.email) {
-        ref.child(filename).getDownloadURL()
+      files.push(childData.name);
+      console.log(files);
+    })
+    for (const i of files) {
+      if (owner == user.email) {
+        ref.child(i).getDownloadURL()
           .then(
             function (url) {
               modelURL = url;
               console.log(modelURL);
-              renderFile(modelURL, filename);
+              renderFile(modelURL, i);
               // renderObject(modelURL);
             });
       } 
-    })
+    }
   });
+  
 }
 
 
@@ -158,8 +197,6 @@ fileIO.onchange = () => {
     name: name, 
     owner: user.email 
   };
-  filenames.push(fileObj);
-  storeFilenames(filenames);
   const metadata = {
     customMetadata: {
       owner: user.email,
@@ -170,11 +207,14 @@ fileIO.onchange = () => {
   task
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
-      renderFile(url);
+      
+      
+      appendFile(name, url);
     })
     .catch(console.error);
+  filenames.push(fileObj);
   console.log(filenames);
-  
+  storeFilenames(filenames);
 }
 
 
