@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require('electron')
 const dotenv = require('dotenv')
-const result = dotenv.config();
+const result = dotenv.config({ path: __dirname + '/.env'});
 
 if (result.error) {
   throw result.error;
@@ -17,7 +17,7 @@ function createWindow() {
   win = new BrowserWindow({ width: 800, height: 600, titleBarStyle: 'hidden'})
 
   // and load the index.html of the app.
-  win.loadFile('index.html')
+  win.loadFile( __dirname + '/index.html')
 
   // Open the DevTools.
   win.webContents.openDevTools()

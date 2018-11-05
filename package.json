@@ -3,7 +3,7 @@
   "productName": "Orbit",
   "version": "0.0.1",
   "description": "An application that lets you view the 3D models on your computer in gallery format",
-  "main": "./js/main.js",
+  "main": "./main.js",
   "scripts": {
     "start": "electron .",
     "build:osx" : "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/orbit.icns --prune=true --out=release-builds"
