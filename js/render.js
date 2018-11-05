@@ -87,15 +87,19 @@ function storeFilenames(filenames, users) {
 fileIO.onchange = () => {
   const file = document.querySelector("#input").files[0];
   var name = file.name;
+  var user = firebase.auth().currentUser;
   filenames.push(name);
   const metadata = {
-    contentType: file.type
+    customMetadata: {
+      owner: user.email,
+      ownerID: user.uid,
+    }
   };
   const task = ref.child(name).put(file, metadata);
   task
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
-      //const URLref = url;
+      console.log(metadata);
       if (name.length > 25) {
         var div = document.createElement("div");
         var title = document.createElement("p");
@@ -450,6 +454,7 @@ function renderObject(url) {
   // create a scene, that will hold all our elements such as objects, cameras and lights.
   var scene = new THREE.Scene();
   // create a camera, which defines where we're looking at.
+  var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
   // create a render and set the size
   var webGLRenderer = new THREE.WebGLRenderer( {alpha: true} );
   webGLRenderer.setClearColor(0x000000, 0);
