@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="576px" height="387px" viewBox="0 0 576 387" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3" transform="translate(-29.000000, -47.000000)" fill-rule="nonzero">
+            <g id="Group">
+                <g id="Group-2" transform="translate(317.068365, 241.281417) rotate(-10.000000) translate(-317.068365, -241.281417) translate(29.568365, 47.781417)">
+                    <circle id="Oval" fill="#FFA200" cx="292" cy="193.5" r="193.5"></circle>
+                    <ellipse id="Oval" stroke="#000000" stroke-width="4" cx="287.540458" cy="193.263518" rx="289.388535" ry="82"></ellipse>
+                    <ellipse id="Oval" stroke="#000000" stroke-width="4" cx="290.290962" cy="194.484808" rx="255.339383" ry="72.5217786"></ellipse>
+                    <ellipse id="Oval" stroke="#000000" stroke-width="4" cx="290.46461" cy="193.5" rx="229.749546" ry="65.3983666"></ellipse>
+                    <path d="" id="Path" stroke="#979797"></path>
+                    <path d="" id="Path-2" stroke="#979797"></path>
+                    <path d="" id="Path-3" stroke="#979797"></path>
+                    <path d="" id="Path-4" stroke="#979797"></path>
+                    <ellipse id="Oval" stroke="#000000" fill="#AEFA2C" cx="290.46461" cy="130.101633" rx="12.2831216" ry="3.41923775"></ellipse>
+                    <ellipse id="Oval" stroke="#000000" fill="#3197FF" cx="543.803993" cy="158.767801" rx="12.2831216" ry="3.41923775"></ellipse>
+                    <path d="M292,203.566406 C362.464782,203.566406 403.765693,205.530691 437.601563,203.566406 C455.081274,202.551651 485.5,229.902317 485.5,193.5 C485.5,86.6329009 398.867099,0 292,0 C185.132901,0 98.5,86.6329009 98.5,193.5 C98.5,235.300277 119.179892,206.104831 141.714844,203.566406 C176.793025,199.615063 226.933178,203.566406 292,203.566406 Z" id="Oval" fill="#FFA200"></path>
+                </g>
+                <path d="" id="Path-5" stroke="#979797"></path>
+            </g>
+            <circle id="Oval" fill="#FB4B4B" cx="100.265625" cy="309.53125" r="13"></circle>
+            <circle id="Oval" fill="#3197FF" cx="563.265625" cy="161.53125" r="13"></circle>
+        </g>
+    </g>
+</svg>
