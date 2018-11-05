@@ -162,7 +162,8 @@ function getFiles() {
   var owner;
 
   var dbRef = firebase.database().ref('/files/filenames');
-  dbRef.once('value', (snapshot) => {
+  dbRef
+  .once('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {
       childKey = childSnapshot.key;
       childData = childSnapshot.val();
@@ -170,7 +171,9 @@ function getFiles() {
       //console.log(childKey);
       files.push(childData.name);
       console.log(files);
+      });
     })
+  .then(() => {
     for (const i of files) {
       if (owner == user.email) {
         ref.child(i).getDownloadURL()
@@ -180,11 +183,20 @@ function getFiles() {
               console.log(modelURL);
               renderFile(modelURL, i);
               // renderObject(modelURL);
-            });
-      } 
-    }
-  });
-  
+            })
+          .catch (() => {
+            console.log("A function does not exist with that name in storage");
+            
+          })
+          }
+        }
+    })
+  .catch(function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode + errorMessage);
+    console.log("A file does not exist with that name in storage");    
+  }); 
 }
 
 
@@ -206,9 +218,7 @@ fileIO.onchange = () => {
   const task = ref.child(name).put(file, metadata);
   task
     .then(snapshot => snapshot.ref.getDownloadURL())
-    .then(url => {
-      
-      
+    .then(url => {      
       appendFile(name, url);
     })
     .catch(console.error);
@@ -535,7 +545,7 @@ function renderObject(url) {
   // create a render and set the size
   var webGLRenderer = new THREE.WebGLRenderer( {alpha: true} );
   webGLRenderer.setClearColor(0x000000, 0);
-  webGLRenderer.setSize(600, 400);
+  webGLRenderer.setSize(300, 200);
   webGLRenderer.shadowMapEnabled = true;
   // position and point the camera to the center of the scene
   camera.position.x = 150;
