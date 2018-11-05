@@ -12,6 +12,12 @@ An application that lets you view the 3D models on your computer in gallery form
       - Maybe zip or tar in Firebase
       
 - [x] Consistent way to pull URLs from firebase
+<<<<<<< HEAD
   - [x] Storing the users UID in Custom metadata
   - [ ] Append to database instead of overwriting
   - [ ] Search for UID 
+=======
+  - [x] Storing the users UID in Custom metadata.
+  - [ ] Append to database instead of overwriting.
+  - [ ] Search for UID. 
+>>>>>>> 5287c26a653820aac732c77f0baa44256057f5b1
