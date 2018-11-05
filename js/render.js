@@ -14,12 +14,12 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     console.log("User is signed in.");
     console.log(user.uid);
+    getFiles();
     welcome.innerHTML = "";
     // welcome.innerHTML = "Hey, " + user.email;
     profile.style.display = "inline";
     logout.style.display = "inline";
-    modalBtn.style.display = "none";
-
+    modalBtn.style.display = "none";   
   } else {
     console.log("No user is signed in.");
   }
@@ -55,7 +55,10 @@ var modalBtn = document.querySelector("#user");
 var modal = document.querySelector("#modal");
 var profileBtn = document.querySelector("#profile");
 var profileModal = document.querySelector("#profile-modal");
-var flag = true;
+// Search
+var searchBar = document.querySelector(".search");
+// Model URL 
+var modelURL;
 
 
 // Functions 
@@ -73,73 +76,107 @@ function drawerCheck() {
     main.style.marginLeft = "0px";
   }
 }
+
 // Push filenames to db with user id
-function storeFilenames(filenames, users) {
+function storeFilenames(filenames) {
   database.ref('files/').set({
     filenames: filenames
   });
-  database.ref('users/').set({
-    usernames: users
-  })
   console.log("Success");
 }
+
+function renderFile(url, name) {
+  if (name.length > 25) {
+    var div = document.createElement("div");
+    var title = document.createElement("p");
+    var marquee = document.createElement("marquee");
+    var clickURL = document.createElement("a");
+    var urlWords = document.createTextNode(name);
+
+    clickURL.appendChild(urlWords);
+    clickURL.href = url;
+    clickURL.target = "_blank";
+
+    marquee.appendChild(clickURL);
+    title.appendChild(marquee);
+    div.appendChild(title);
+    div.classList.add("item");
+  } else {
+    var div = document.createElement("div");
+    var title = document.createElement("p");
+    var clickURL = document.createElement("a");
+    var urlWords = document.createTextNode(name);
+
+    clickURL.appendChild(urlWords);
+    clickURL.href = url;
+    clickURL.target = "_blank";
+
+    title.appendChild(clickURL);
+    div.appendChild(title);
+    div.classList.add("item");
+  }
+
+  searchBar.appendChild(div);
+  //console.log(url);
+  renderObject(url);
+}
+
+function getFiles() {
+  var user = firebase.auth().currentUser;
+  var childKey;
+  var childData;
+  var filename;
+  var dbRef = firebase.database().ref('/files/filenames');
+  dbRef.once('value', (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      childKey = childSnapshot.key;
+      childData = childSnapshot.val();
+      //console.log(childKey);
+      filename = childData.name;
+      console.log(filename);
+      if (childData.owner == user.email) {
+        ref.child(filename).getDownloadURL()
+          .then(
+            function (url) {
+              modelURL = url;
+              console.log(modelURL);
+              renderFile(modelURL, filename);
+              // renderObject(modelURL);
+            });
+      } 
+    })
+  });
+}
+
+
 // Push file to firebase storage 
 fileIO.onchange = () => {
   const file = document.querySelector("#input").files[0];
   var name = file.name;
   var user = firebase.auth().currentUser;
-  filenames.push(name);
+  var fileObj = { 
+    name: name, 
+    owner: user.email 
+  };
+  filenames.push(fileObj);
+  storeFilenames(filenames);
   const metadata = {
     customMetadata: {
       owner: user.email,
-      ownerID: user.uid,
+      ownerID: user.uid
     }
   };
   const task = ref.child(name).put(file, metadata);
   task
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
-      console.log(metadata);
-      if (name.length > 25) {
-        var div = document.createElement("div");
-        var title = document.createElement("p");
-        var marquee = document.createElement("marquee")
-        var clickURL = document.createElement("a");
-        var urlWords = document.createTextNode(name);
-
-        clickURL.appendChild(urlWords);
-        clickURL.href = url;
-        clickURL.target = "_blank";
-
-        marquee.appendChild(clickURL);
-        title.appendChild(marquee);
-        div.appendChild(title);
-        div.classList.add("item");
-      }
-      else {
-        var div = document.createElement("div");
-        var title = document.createElement("p");
-        var clickURL = document.createElement("a");
-        var urlWords = document.createTextNode(name);
-
-        clickURL.appendChild(urlWords);
-        clickURL.href = url;
-        clickURL.target = "_blank";
-
-        title.appendChild(clickURL);
-        div.appendChild(title);
-        div.classList.add("item");
-      }
-
-      var searchBar = document.querySelector(".search");
-      searchBar.appendChild(div);
-      //console.log(url);
-      renderObject(url);
+      renderFile(url);
     })
     .catch(console.error);
   console.log(filenames);
   
 }
+
 
 function createUser(email, password) {
   firebase
