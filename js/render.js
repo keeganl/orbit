@@ -78,9 +78,13 @@ function drawerCheck() {
 }
 
 // Push filenames to db with user id
-function storeFilenames(filenames) {
-  database.ref('files').set({
-    filenames: filenames
+function storeFilenames(fileObj) {
+  var rootRef = firebase.database().ref();
+  var filesRef = rootRef.child('files/');
+  var newEntry = filesRef.push();
+  newEntry.set({
+    name: fileObj.name,
+    owner: fileObj.owner
   });
   console.log("Success");
 }
@@ -119,7 +123,7 @@ function appendFile(name, url) {
 }
 
 function renderFile(url, name) {
-  if (name.length > 25) {
+  if(name.length > 25) {
     var div = document.createElement("div");
     var title = document.createElement("p");
     var marquee = document.createElement("marquee");
@@ -161,14 +165,14 @@ function getFiles() {
   var files = [];
   var owner;
 
-  var dbRef = firebase.database().ref('/files/filenames');
+  var dbRef = firebase.database().ref('/files/');
   dbRef
   .once('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {
       childKey = childSnapshot.key;
       childData = childSnapshot.val();
       owner = childData.owner;
-      //console.log(childKey);
+      console.log(owner);
       files.push(childData.name);
       console.log(files);
       });
@@ -222,9 +226,7 @@ fileIO.onchange = () => {
       appendFile(name, url);
     })
     .catch(console.error);
-  filenames.push(fileObj);
-  console.log(filenames);
-  storeFilenames(filenames);
+  storeFilenames(fileObj);
 }
 
 
