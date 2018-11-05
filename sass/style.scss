@@ -44,6 +44,9 @@ canvas {
 .topbtns {
   transition: 0.5s
 }
+#profile {
+  display: none;
+}
 #logout {
   display: none;
 }
@@ -163,6 +166,20 @@ input[type="file"] {
 }
 // Modal
 #modal {
+  display: none;
+  position: fixed;
+  padding-top: 15%;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #000;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+}
+// Modal
+#profile-modal {
   display: none;
   position: fixed;
   padding-top: 15%;

@@ -14,6 +14,12 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     console.log("User is signed in.");
     console.log(user.uid);
+    welcome.innerHTML = "";
+    // welcome.innerHTML = "Hey, " + user.email;
+    profile.style.display = "inline";
+    logout.style.display = "inline";
+    modalBtn.style.display = "none";
+
   } else {
     console.log("No user is signed in.");
   }
@@ -47,6 +53,8 @@ const deleteBtn = document.querySelector(".deletebtn");
 // Modal
 var modalBtn = document.querySelector("#user");
 var modal = document.querySelector("#modal");
+var profileBtn = document.querySelector("#profile");
+var profileModal = document.querySelector("#profile-modal");
 var flag = true;
 
 
@@ -150,8 +158,9 @@ function createUser(email, password) {
         passwordRef.classList.remove("right");
         successCon.remove();
         form.reset();
-        welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
+        // welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
         logout.style.display = "inline";
+        profile.style.display = "inline";
         modalBtn.style.display = "none";
         modalExit();
       }, 2500);
@@ -191,8 +200,9 @@ function signInUser(email, password) {
           passwordRef.classList.remove("right");
           successCon.remove();
           form.reset();
-          welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
+          // welcome.innerHTML = "Hey, " + capitalizeFirstLetter(username);
           logout.style.display = "inline";
+          profile.style.display = "inline";
           modalBtn.style.display = "none";
           modalExit();
         }, 2500);
@@ -324,9 +334,16 @@ modalBtn.onclick = () => {
   modal.style.display = "block";
 }
 
+profileBtn.onclick = () => {
+  profileModal.style.display = "block";
+};
+
 window.onclick = (e) => {
   if(e.target == modal) {
     modal.style.display = "none";
+  }
+  else if (e.target == profileModal) {
+    profileModal.style.display = "none";
   }
 }
 
@@ -417,6 +434,7 @@ logout.onclick = () => {
     welcome.innerHTML = "Welcome to Orbit";
     modalBtn.style.display = "inline";
     logout.style.display = "none";
+    profile.style.display = "none";
   }).catch(function (error) {
     console.log(error);
   });
