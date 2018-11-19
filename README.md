@@ -1,5 +1,15 @@
 # orbit
 
+
+[![GitHub issues](https://img.shields.io/github/issues/keeganl/orbit.svg)](https://github.com/keeganl/orbit/issues) 
+[![GitHub forks](https://img.shields.io/github/forks/keeganl/orbit.svg)](https://github.com/keeganl/orbit/network) 
+[![GitHub stars](https://img.shields.io/github/stars/keeganl/orbit.svg)](https://github.com/keeganl/orbit/stargazers) 
+[![GitHub license](https://img.shields.io/github/license/keeganl/orbit.svg)](https://github.com/keeganl/orbit)
+
+
+
+
+
 ### Description 
 An application that lets you view the 3D models on your computer in gallery format. Built with Electron.
 
